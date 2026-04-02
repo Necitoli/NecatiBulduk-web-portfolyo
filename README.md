@@ -1,69 +1,43 @@
-# web_portfolio_template
-web projesi yönetimi dersi
+🤼‍♂️ Güreş Yönetim & Eğitim Sistemi
+Bu proje; güreş kulüpleri, antrenörler ve sporcular için tasarlanmış, antrenman takibi, sporcu gelişimi ve müsabaka yönetimini dijitalleştiren modern bir web platformudur.
 
-🤼‍♂️ Güreş Web Sitesi Projesi
+🚀 Proje Hakkında
+Tasarımda modern web trendlerinden biri olan Glassmorphism (Cam Efekti) kullanılmış olup; derinlikli bir kullanıcı arayüzü, karanlık tema ve neon detaylarla desteklenmiştir.
 
-Bu proje, güreş sporuna ilgi duyan kullanıcılar için hazırlanmış modern ve bilgilendirici bir web sitesidir. Site; güreş türleri, sporcular, teknikler, haberler ve etkinlikler hakkında içerik sunmayı amaçlamaktadır.
+Amacım: Güreş sporunun disiplinini, modern teknolojinin sağladığı analitik verilerle birleştirerek sporcuların performansını maksimize edecek kullanıcı dostu bir dijital deneyim sunmaktır.
 
-📌 Proje Amacı
+✨ Öne Çıkan Özellikler
+Modern UI/UX: Yarı saydam kartlar, backdrop-filter kullanımı ve güreş dinamiklerine uygun akıcı hover animasyonları.
 
-Bu web sitesinin amacı:
+Dinamik Sporcu Filtreleme: Sıkletlere, yaş kategorilerine veya başarı oranlarına göre Vanilla JS ile yazılmış hızlı arama ve filtreleme sistemi.
 
-Güreş sporunu tanıtmak
-Kullanıcılara eğitici içerikler sunmak
-Ünlü güreşçileri tanıtmak
-Güncel güreş haberlerini paylaşmak
-Turnuva ve etkinlikleri listelemek
-🌐 Web Sitesinde Bulunacak Bölümler
-🏠 Ana Sayfa
-Güreş sporuna kısa giriş
-Öne çıkan haberler
-Popüler güreşçiler
-📖 Güreş Türleri
-Serbest stil güreş
-Grekoromen güreş
-Yağlı güreş (Kırkpınar vb.)
-Açıklamalar ve kurallar
-🧑‍🤝‍🧑 Güreşçiler
-Ünlü güreşçilerin profilleri
-Başarıları ve biyografileri
-Fotoğraflar
-🎯 Teknikler
-Temel güreş teknikleri
-Video veya görsel anlatımlar
-Eğitim içerikleri
-📰 Haberler
-Güncel güreş haberleri
-Turnuva sonuçları
-Röportajlar
-📅 Etkinlikler
-Yaklaşan güreş organizasyonları
-Tarih ve yer bilgileri
-📩 İletişim
-İletişim formu
-Sosyal medya bağlantıları
-🛠️ Kullanılacak Teknolojiler
-Frontend:
-HTML5
-CSS3
-JavaScript
-/wrestling-website
-│
-├── index.html
-├── about.html
-├── wrestlers.html
-├── techniques.html
-├── news.html
-├── events.html
-├── contact.html
-│
-├── /css
-│   └── style.css
-│
-├── /js
-│   └── script.js
-│
-├── /images
-│   └── (görseller)
-│
-└── README.md
+Antrenman Takip Paneli: Günlük antrenman programlarının ve teknik çalışmaların (grekoromen/serbest stil) takibi için özel dashboard.
+
+Özel Bildirimler (Toast): Yeni müsabaka kayıtlarında veya antrenman saati değişikliklerinde sayfa yenilenmeden çalışan JS bildirim sistemi.
+
+Tamamen Responsive: CSS Grid ve Flexbox mimarisiyle tablet ve telefonlarda kusursuz görünüm.
+
+🛠️ Kullanılan Teknolojiler & Araçlar
+Proje, hem estetik hem de performans odaklı bir teknoloji yığını ile inşa edilmiştir:
+
+Web Geliştirme: HTML5, CSS3 (SCSS/Custom Variables), JavaScript (ES6+)
+
+Programlama Dilleri: Java (Backend/Veri Yönetimi mantığı için)
+
+Tasarım: Figma (UI tasarımı), Canva (Güreş temalı afiş ve görseller)
+
+Animasyon: Adobe Animate (Teknik analiz animasyonları ve karakter döngüleri)
+
+📂 Proje Dosya Yapısı
+Plaintext
+├── assets/             # Görseller, ikonlar ve animasyon dosyaları
+├── css/                # Glassmorphism ve ana stil dosyaları
+├── js/                 # Filtreleme, bildirim ve dinamik içerik scriptleri
+├── data/               # Sporcu ve antrenman veri modelleri (Java/JSON)
+└── index.html          # Ana karşılama sayfası
+Nasıl Kullanılır?
+Bu depoyu klonlayın: git clone https://github.com/kullaniciadi/gures-yonetim-sistemi.git
+
+index.html dosyasını tarayıcınızda açın.
+
+Sporcu paneli üzerinden deneme kayıtları oluşturmaya başlayın!
