@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Yaklaşan Güreş Etkinlikleri - Turnuvalar ve Müsabakalar">
+    <title>Etkinlikler - Güreş Dünyası</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-red: #dc2626;
+            --secondary-gold: #f59e0b;
+            --dark-blue: #1e3a8a;
+            --light-bg: #f8fafc;
+            --text-dark: #1e293b;
+            --text-light: #64748b;
+            --white: #ffffff;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, var(--light-bg) 0%, #e0e7ff 100%);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: var(--shadow);
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--primary-red);
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 500;
+            position: relative;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary-red);
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            width: 100%;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: var(--text-dark);
+            border-radius: 2px;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(8px, 8px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -7px);
+        }
+
+        /* Page Header */
+        .page-header {
+            margin-top: 80px;
+            padding: 4rem 1.5rem;
+            background: linear-gradient(135deg, var(--primary-red), var(--dark-blue));
+            color: var(--white);
+            text-align: center;
+        }
+
+        .page-header h1 {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .page-header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        /* Events Section */
+        .events-section {
+            padding: 4rem 1.5rem;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 900;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--primary-red);
+        }
+
+        .events-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        .event-card {
+            display: flex;
+            gap: 2rem;
+            padding: 2rem;
+            background: var(--white);
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .event-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(220, 38, 38, 0.2);
+        }
+
+        .event-date {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-width: 80px;
+            padding: 1rem;
+            background: linear-gradient(135deg, var(--primary-red), var(--secondary-gold));
+            color: var(--white);
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .event-date .month {
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .event-date .day {
+            font-size: 2rem;
+            font-weight: 900;
+        }
+
+        .event-content h3 {
+            color: var(--primary-red);
+            margin-bottom: 0.5rem;
+        }
+
+        .event-location {
+            color: var(--secondary-gold);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .event-description {
+            color: var(--text-light);
+            margin-bottom: 1rem;
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+
+        .event-category {
+            display: inline-block;
+            background: var(--light-bg);
+            color: var(--primary-red);
+            padding: 0.4rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--dark-blue);
+            color: var(--white);
+            text-align: center;
+            padding: 2rem;
+            margin-top: 4rem;
+        }
+
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+
+            .nav-menu {
+                position: fixed;
+                left: -100%;
+                top: 70px;
+                flex-direction: column;
+                background-color: var(--white);
+                width: 100%;
+                text-align: center;
+                transition: 0.3s;
+                box-shadow: var(--shadow);
+            }
+
+            .nav-menu.active {
+                left: 0;
+            }
+
+            .nav-menu li {
+                padding: 1rem;
+                border-bottom: 1px solid var(--light-bg);
+            }
+
+            .page-header h1 {
+                font-size: 2rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .event-card {
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .page-header {
+                padding: 2rem 1rem;
+            }
+
+            .page-header h1 {
+                font-size: 1.8rem;
+            }
+
+            .events-section {
+                padding: 2rem 1rem;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            .event-card {
+                padding: 1.5rem;
+                gap: 1rem;
+            }
+
+            .event-date {
+                min-width: 70px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">⚔️ Güreş</div>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">Ana Sayfa</a></li>
+                <li><a href="about.html" class="nav-link">Güreş Nedir?</a></li>
+                <li><a href="wrestlers.html" class="nav-link">Efsaneler</a></li>
+                <li><a href="events.html" class="nav-link active">Etkinlikler</a></li>
+                <li><a href="contact.html" class="nav-link">İletişim</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1>Yaklaşan Etkinlikler</h1>
+            <p>Güreş turnuvaları ve müsabakalar</p>
+        </div>
+    </section>
+
+    <!-- Events Section -->
+    <section class="events-section">
+        <div class="container">
+            <div class="events-grid">
+                <div class="event-card">
+                    <div class="event-date">
+                        <span class="month">Mayıs</span>
+                        <span class="day">15</span>
+                    </div>
+                    <div class="event-content">
+                        <h3>Ulusal Güreş Şampiyonası</h3>
+                        <p class="event-location">📍 İstanbul Spor Sarayı</p>
+                        <p class="event-description">
+                            Ülke genelinden gelen güreşçilerin katılacağı büyük bir şampiyona. 
+                            Freestyle ve Grekoromano kategorilerinde müsabakalar yapılacaktır.
+                        </p>
+                        <span class="event-category">Şampiyona</span>
+                    </div>
+                </div>
+
+                <div class="event-card">
+                    <div class="event-date">
+                        <span class="month">Haziran</span>
+                        <span class="day">22</span>
+                    </div>
+                    <div class="event-content">
+                        <h3>Uluslararası Gençlik Turnuvası</h3>
+                        <p class="event-location">📍 Ankara Spor Kompleksi</p>
+                        <p class="event-description">
+                            Genç güreşçilerin uluslararası platformda yarışacağı bir turnuva. 
+                            Farklı ülkelerden sporcuların katılımı beklenmektedir.
+                        </p>
+                        <span class="event-category">Turnuva</span>
+                    </div>
+                </div>
+
+                <div class="event-card">
+                    <div class="event-date">
+                        <span class="month">Temmuz</span>
+                        <span class="day">10</span>
+                    </div>
+                    <div class="event-content">
+                        <h3>Kadın Güreş Festivali</h3>
+                        <p class="event-location">📍 İzmir Fuar Alanı</p>
+                        <p class="event-description">
+                            Kadın güreşçilerin yer aldığı ve geniş halk katılımının bekleneceği bir festival. 
+                            Eğitim seminerleri ve gösteriler yapılacaktır.
+                        </p>
+                        <span class="event-category">Festival</span>
+                    </div>
+                </div>
+
+                <div class="event-card">
+                    <div class="event-date">
+                        <span class="month">Ağustos</span>
+                        <span class="day">05</span>
+                    </div>
+                    <div class="event-content">
+                        <h3>Avrupa Güreş Şampiyonası</h3>
+                        <p class="event-location">📍 Bulgaristan - Sofia</p>
+                        <p class="event-description">
+                            Avrupa'nın en iyi güreşçilerinin katılacağı prestijli bir şampiyona. 
+                            Türk sporcuları da ülkelerini temsil edeceklerdir.
+                        </p>
+                        <span class="event-category">Uluslararası</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 Güreş Dünyası. Tüm Hakları Saklıdır.</p>
+        </div>
+    </footer>
+
+    <script>
+        const hamburger = document.querySelector('.hamburger');
+        const navMenu = document.querySelector('.nav-menu');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navMenu.classList.toggle('active');
+        });
+
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                navMenu.classList.remove('active');
+            });
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+            navLinks.forEach(link => {
+                const href = link.getAttribute('href');
+                if (href === currentPage) {
+                    link.classList.add('active');
+                } else {
+                    link.classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
