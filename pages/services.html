@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Güreş Dünyası Hizmetleri - Kurslar ve Etkinlikler">
     <title>Hizmetler - Güreş Dünyası</title>
     <style>
         * {
@@ -24,15 +23,11 @@
             --success-green: #10b981;
         }
 
-        html {
-            scroll-behavior: smooth;
-        }
-
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(135deg, var(--light-bg) 0%, #e0e7ff 100%);
             color: var(--text-dark);
-            line-height: 1.6;
+            padding-top: 80px;
         }
 
         body.dark-mode {
@@ -87,120 +82,62 @@
             text-decoration: none;
             color: var(--text-dark);
             font-weight: 500;
-            position: relative;
         }
 
         body.dark-mode .nav-link {
             color: #e0e0e0;
         }
 
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--primary-red);
-            transition: all 0.3s ease;
-        }
-
-        .nav-link:hover::after,
-        .nav-link.active::after {
-            width: 100%;
-        }
-
-        .cart-badge {
-            background: var(--primary-red);
-            color: white;
-            border-radius: 50%;
-            width: 24px;
-            height: 24px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.8rem;
-            font-weight: bold;
-            margin-left: 0.5rem;
+        .nav-link.active {
+            color: var(--primary-red);
+            font-weight: 700;
         }
 
         .hamburger {
             display: none;
             flex-direction: column;
             cursor: pointer;
-            gap: 5px;
         }
 
         .hamburger span {
             width: 25px;
             height: 3px;
             background: var(--text-dark);
-            border-radius: 2px;
+            margin: 5px 0;
+            transition: 0.3s;
         }
 
         body.dark-mode .hamburger span {
             background: #e0e0e0;
         }
 
-        .hamburger.active span:nth-child(1) {
-            transform: rotate(45deg) translate(8px, 8px);
-        }
-
-        .hamburger.active span:nth-child(2) {
-            opacity: 0;
-        }
-
-        .hamburger.active span:nth-child(3) {
-            transform: rotate(-45deg) translate(7px, -7px);
-        }
-
         /* Page Header */
         .page-header {
-            margin-top: 80px;
-            padding: 4rem 1.5rem;
-            background: linear-gradient(135deg, var(--primary-red), var(--dark-blue));
-            color: var(--white);
+            background: linear-gradient(135deg, var(--primary-red) 0%, var(--dark-blue) 100%);
+            color: white;
+            padding: 3rem 0;
             text-align: center;
+            margin-bottom: 3rem;
         }
 
         .page-header h1 {
-            font-size: 3rem;
+            font-size: 2.5rem;
             margin-bottom: 0.5rem;
         }
 
-        .page-header p {
-            font-size: 1.2rem;
-            opacity: 0.9;
-        }
-
-        /* Services Section */
-        .services-section {
-            padding: 4rem 1.5rem;
-        }
-
-        .section-title {
-            font-size: 2.5rem;
-            color: var(--primary-red);
-            margin-bottom: 3rem;
-            text-align: center;
-        }
-
-        body.dark-mode .section-title {
-            color: var(--secondary-gold);
-        }
-
+        /* Services Grid */
         .services-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 2rem;
-            margin-bottom: 4rem;
+            margin-bottom: 3rem;
         }
 
         .service-card {
             background: var(--white);
-            border-radius: 15px;
+            border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            box-shadow: var(--shadow);
             transition: all 0.3s ease;
             display: flex;
             flex-direction: column;
@@ -208,20 +145,18 @@
 
         body.dark-mode .service-card {
             background: #2a2a3e;
-            color: #e0e0e0;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
         }
 
         .service-card:hover {
             transform: translateY(-10px);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
         }
 
         .service-image {
             font-size: 4rem;
-            padding: 2rem;
-            background: linear-gradient(135deg, var(--primary-red), var(--secondary-gold));
             text-align: center;
-            color: var(--white);
+            padding: 2rem;
+            background: linear-gradient(135deg, rgba(220, 38, 38, 0.1) 0%, rgba(245, 158, 11, 0.1) 100%);
         }
 
         .service-content {
@@ -234,8 +169,8 @@
         .service-name {
             font-size: 1.3rem;
             font-weight: 700;
-            color: var(--text-dark);
             margin-bottom: 0.5rem;
+            color: var(--text-dark);
         }
 
         body.dark-mode .service-name {
@@ -255,50 +190,14 @@
         }
 
         .service-description {
-            color: var(--text-light);
             font-size: 0.95rem;
+            color: var(--text-light);
             margin-bottom: 1rem;
             flex-grow: 1;
         }
 
         body.dark-mode .service-description {
             color: #b0b0c0;
-        }
-
-        .service-details {
-            display: flex;
-            justify-content: space-between;
-            font-size: 0.9rem;
-            margin-bottom: 1rem;
-            padding-bottom: 1rem;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-        }
-
-        body.dark-mode .service-details {
-            border-bottom-color: rgba(255, 255, 255, 0.1);
-        }
-
-        .detail-item {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .detail-label {
-            color: var(--text-light);
-            font-size: 0.8rem;
-        }
-
-        body.dark-mode .detail-label {
-            color: #b0b0c0;
-        }
-
-        .detail-value {
-            font-weight: 600;
-            color: var(--primary-red);
-        }
-
-        body.dark-mode .detail-value {
-            color: var(--secondary-gold);
         }
 
         .service-price {
@@ -360,27 +259,29 @@
             transform: scale(1.05);
         }
 
-        /* Loading State */
-        .loading {
-            text-align: center;
-            padding: 3rem;
-            font-size: 1.2rem;
-            color: var(--text-light);
+        /* Notification */
+        .notification {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: var(--success-green);
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            z-index: 2000;
+            animation: slideIn 0.3s ease;
         }
 
-        .spinner {
-            border: 4px solid rgba(0, 0, 0, 0.1);
-            border-top: 4px solid var(--primary-red);
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            animation: spin 1s linear infinite;
-            margin: 0 auto 1rem;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+        @keyframes slideIn {
+            from {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
         }
 
         /* Footer */
@@ -417,47 +318,14 @@
                 left: 0;
             }
 
-            .nav-menu li {
-                padding: 1rem;
-                border-bottom: 1px solid var(--light-bg);
-            }
-
-            .page-header h1 {
-                font-size: 2rem;
-            }
-
             .services-grid {
                 grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
             }
         }
 
         @media (max-width: 480px) {
-            .page-header {
-                padding: 2rem 1rem;
-            }
-
-            .page-header h1 {
-                font-size: 1.8rem;
-            }
-
-            .services-section {
-                padding: 2rem 1rem;
-            }
-
-            .section-title {
-                font-size: 1.8rem;
-            }
-
             .services-grid {
                 grid-template-columns: 1fr;
-            }
-
-            .service-actions {
-                flex-direction: column;
-            }
-
-            .btn-cart {
-                flex: 1;
             }
         }
     </style>
@@ -474,14 +342,9 @@
                 <li><a href="events.html" class="nav-link">Etkinlikler</a></li>
                 <li><a href="services.html" class="nav-link active">Hizmetler</a></li>
                 <li><a href="contact.html" class="nav-link">İletişim</a></li>
-                <li>
-                    <a href="cart.html" class="nav-link" style="display: flex; align-items: center;">
-                        🛒 Sepet
-                        <span class="cart-badge" id="cartBadge">0</span>
-                    </a>
-                </li>
+                <li><a href="cart.html" class="nav-link">🛒 Sepet</a></li>
             </ul>
-            <div class="hamburger">
+            <div class="hamburger" onclick="toggleMenu()">
                 <span></span>
                 <span></span>
                 <span></span>
@@ -493,20 +356,14 @@
     <section class="page-header">
         <div class="container">
             <h1>Hizmetlerimiz</h1>
-            <p>Güreş kursları, antrenmanlar ve etkinlikler</p>
+            <p>Güreş kursları, antrenmanlar, ekipmanlar ve etkinlikler</p>
         </div>
     </section>
 
     <!-- Services Section -->
-    <section class="services-section">
+    <section>
         <div class="container">
-            <h2 class="section-title">Tüm Hizmetler</h2>
-            <div class="services-grid" id="servicesContainer">
-                <div class="loading">
-                    <div class="spinner"></div>
-                    <p>Hizmetler yükleniyor...</p>
-                </div>
-            </div>
+            <div class="services-grid" id="servicesContainer"></div>
         </div>
     </section>
 
@@ -519,192 +376,326 @@
 
     <script src="js/interactions.js"></script>
     <script>
-        // Hizmetleri yükle ve göster
-        async function loadServices() {
-            try {
-                const response = await fetch('data/services.json');
-                const data = await response.json();
-                displayServices(data.services);
-                updateCartBadge();
-            } catch (error) {
-                console.error('Hizmetler yüklenemedi:', error);
-                document.getElementById('servicesContainer').innerHTML = 
-                    '<p style="grid-column: 1/-1; text-align: center; color: red;">Hizmetler yüklenemedi. Lütfen daha sonra tekrar deneyin.</p>';
+        // Hizmetler verisi (inline)
+        const servicesData = [
+            {
+                "id": 1,
+                "name": "Başlangıç Güreş Kursu",
+                "category": "Eğitim",
+                "price": 500,
+                "duration": "8 Hafta",
+                "description": "Güreşin temel tekniklerini öğrenin. Başlangıç seviyesi için ideal.",
+                "image": "🥋",
+                "level": "Başlangıç",
+                "instructor": "Ahmet Yılmaz",
+                "participants": 15,
+                "rating": 4.8
+            },
+            {
+                "id": 2,
+                "name": "Orta Seviye Güreş Antrenmanı",
+                "category": "Antrenman",
+                "price": 750,
+                "duration": "12 Hafta",
+                "description": "İleri teknikler ve stratejiler. Orta seviye güreşçiler için.",
+                "image": "💪",
+                "level": "Orta",
+                "instructor": "Mehmet Kaya",
+                "participants": 12,
+                "rating": 4.9
+            },
+            {
+                "id": 3,
+                "name": "Profesyonel Güreş Eğitimi",
+                "category": "Eğitim",
+                "price": 1200,
+                "duration": "16 Hafta",
+                "description": "Profesyonel seviye güreş eğitimi. Yarışmacılar için.",
+                "image": "🏆",
+                "level": "İleri",
+                "instructor": "Yasemin Adar",
+                "participants": 8,
+                "rating": 5.0
+            },
+            {
+                "id": 4,
+                "name": "Çocuklar İçin Güreş",
+                "category": "Eğitim",
+                "price": 300,
+                "duration": "10 Hafta",
+                "description": "7-12 yaş çocuklar için güreş eğitimi.",
+                "image": "👧",
+                "level": "Başlangıç",
+                "instructor": "Elif Yıldız",
+                "participants": 20,
+                "rating": 4.7
+            },
+            {
+                "id": 5,
+                "name": "Güreş Antrenmanı Paketi",
+                "category": "Antrenman",
+                "price": 2000,
+                "duration": "1 Ay",
+                "description": "Yoğun antrenman programı. Hergün 2 saat.",
+                "image": "⚡",
+                "level": "Tüm Seviyeler",
+                "instructor": "Hasan Baş",
+                "participants": 10,
+                "rating": 4.8
+            },
+            {
+                "id": 6,
+                "name": "Güreş Turnuvası",
+                "category": "Etkinlik",
+                "price": 100,
+                "duration": "1 Gün",
+                "description": "Bölgesel güreş turnuvası. Katılım açık.",
+                "image": "🥇",
+                "level": "Tüm Seviyeler",
+                "instructor": "Organizatörler",
+                "participants": 50,
+                "rating": 4.6
+            },
+            {
+                "id": 7,
+                "name": "Özel Koç Eğitimi",
+                "category": "Eğitim",
+                "price": 1500,
+                "duration": "Özel",
+                "description": "Bireysel koç eğitimi. Kişiye özel program.",
+                "image": "👨‍🏫",
+                "level": "Tüm Seviyeler",
+                "instructor": "Uzman Koçlar",
+                "participants": 1,
+                "rating": 5.0
+            },
+            {
+                "id": 8,
+                "name": "Profesyonel Güreş Matı",
+                "category": "Ekipman",
+                "price": 2500,
+                "duration": "Ürün",
+                "description": "Uluslararası standart güreş matı.",
+                "image": "🟦",
+                "level": "Profesyonel",
+                "instructor": "N/A",
+                "participants": 0,
+                "rating": 4.9
+            },
+            {
+                "id": 9,
+                "name": "Güreş Kostümü (Singlet)",
+                "category": "Ekipman",
+                "price": 350,
+                "duration": "Ürün",
+                "description": "Profesyonel güreş kostümü. Çeşitli renklerde.",
+                "image": "👕",
+                "level": "Tüm Seviyeler",
+                "instructor": "N/A",
+                "participants": 0,
+                "rating": 4.8
+            },
+            {
+                "id": 10,
+                "name": "Güreş Ayakkabısı",
+                "category": "Ekipman",
+                "price": 450,
+                "duration": "Ürün",
+                "description": "Profesyonel güreş ayakkabısı. Rahat ve dayanıklı.",
+                "image": "👟",
+                "level": "Tüm Seviyeler",
+                "instructor": "N/A",
+                "participants": 0,
+                "rating": 4.7
+            },
+            {
+                "id": 12,
+                "name": "Güreş Eldiveni",
+                "category": "Ekipman",
+                "price": 150,
+                "duration": "Ürün",
+                "description": "Koruyucu güreş eldivenleri.",
+                "image": "🧤",
+                "level": "Tüm Seviyeler",
+                "instructor": "N/A",
+                "participants": 0,
+                "rating": 4.5
+            },
+            {
+                "id": 13,
+                "name": "Güreş Çantası",
+                "category": "Ekipman",
+                "price": 300,
+                "duration": "Ürün",
+                "description": "Ekipman taşımak için profesyonel çanta.",
+                "image": "🎒",
+                "level": "Tüm Seviyeler",
+                "instructor": "N/A",
+                "participants": 0,
+                "rating": 4.7
+            },
+            {
+                "id": 14,
+                "name": "Güreş Bandajı",
+                "category": "Ekipman",
+                "price": 80,
+                "duration": "Ürün",
+                "description": "Yaralanma önleme bandajı.",
+                "image": "🩹",
+                "level": "Tüm Seviyeler",
+                "instructor": "N/A",
+                "participants": 0,
+                "rating": 4.4
+            },
+            {
+                "id": 15,
+                "name": "Güreş Başlığı",
+                "category": "Ekipman",
+                "price": 280,
+                "duration": "Ürün",
+                "description": "Koruyucu güreş başlığı.",
+                "image": "🪖",
+                "level": "Tüm Seviyeler",
+                "instructor": "N/A",
+                "participants": 0,
+                "rating": 4.8
+            },
+            {
+                "id": 16,
+                "name": "Güreş Çorabı",
+                "category": "Ekipman",
+                "price": 60,
+                "duration": "Ürün",
+                "description": "Profesyonel güreş çorabı.",
+                "image": "🧦",
+                "level": "Tüm Seviyeler",
+                "instructor": "N/A",
+                "participants": 0,
+                "rating": 4.3
+            },
+            {
+                "id": 17,
+                "name": "Güreş Ekipmanı Tam Paketi",
+                "category": "Ekipman",
+                "price": 1200,
+                "duration": "Ürün",
+                "description": "Tüm güreş ekipmanlarını içeren paket.",
+                "image": "📦",
+                "level": "Tüm Seviyeler",
+                "instructor": "N/A",
+                "participants": 0,
+                "rating": 4.9
+            },
+            {
+                "id": 18,
+                "name": "Güreş Matı Temizlik Seti",
+                "category": "Ekipman",
+                "price": 150,
+                "duration": "Ürün",
+                "description": "Matı temiz tutmak için temizlik seti.",
+                "image": "🧹",
+                "level": "Tüm Seviyeler",
+                "instructor": "N/A",
+                "participants": 0,
+                "rating": 4.5
             }
-        }
+        ];
 
-        // Hizmetleri kartlarla göster
+        // Sayfa yüklendiğinde
+        document.addEventListener('DOMContentLoaded', function() {
+            displayServices(servicesData);
+        });
+
+        // Hizmetleri göster
         function displayServices(services) {
             const container = document.getElementById('servicesContainer');
             container.innerHTML = '';
 
             services.forEach(service => {
-                const card = createServiceCard(service);
+                const card = document.createElement('div');
+                card.className = 'service-card';
+
+                const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+                const isFavorite = favorites.some(fav => fav.id === service.id);
+
+                card.innerHTML = `
+                    <div class="service-image">${service.image}</div>
+                    <div class="service-content">
+                        <h3 class="service-name">${service.name}</h3>
+                        <span class="service-category">${service.category}</span>
+                        <p class="service-description">${service.description}</p>
+                        <div class="service-price">₺${service.price}</div>
+                        <div class="service-actions">
+                            <button class="action-btn btn-favorite ${isFavorite ? 'active' : ''}" 
+                                    onclick="toggleFavorite(${service.id})">
+                                ${isFavorite ? '❤️' : '🤍'} Favori
+                            </button>
+                            <button class="action-btn btn-cart" onclick="addToCart(${service.id}, '${service.name}', ${service.price})">
+                                🛒 Sepete Ekle
+                            </button>
+                        </div>
+                    </div>
+                `;
+
                 container.appendChild(card);
             });
         }
 
-        // Hizmet kartı oluştur
-        function createServiceCard(service) {
-            const card = document.createElement('div');
-            card.className = 'service-card';
-
-            const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
-            const isFavorite = favorites.some(fav => fav.id === service.id);
-
-            card.innerHTML = `
-                <div class="service-image">${service.image}</div>
-                <div class="service-content">
-                    <h3 class="service-name">${service.name}</h3>
-                    <span class="service-category">${service.category}</span>
-                    <p class="service-description">${service.description}</p>
-                    
-                    <div class="service-details">
-                        <div class="detail-item">
-                            <span class="detail-label">Seviye</span>
-                            <span class="detail-value">${service.level}</span>
-                        </div>
-                        <div class="detail-item">
-                            <span class="detail-label">Süre</span>
-                            <span class="detail-value">${service.duration}</span>
-                        </div>
-                        <div class="detail-item">
-                            <span class="detail-label">Puan</span>
-                            <span class="detail-value">⭐ ${service.rating}</span>
-                        </div>
-                    </div>
-
-                    <div class="service-price">₺${service.price}</div>
-
-                    <div class="service-actions">
-                        <button class="action-btn btn-favorite ${isFavorite ? 'active' : ''}" 
-                                onclick="toggleFavorite(${service.id}, this)"
-                                title="Favorilere ekle">
-                            ${isFavorite ? '❤️' : '🤍'} Favori
-                        </button>
-                        <button class="action-btn btn-cart" onclick="addToCart(${service.id})">
-                            🛒 Sepete Ekle
-                        </button>
-                    </div>
-                </div>
-            `;
-
-            return card;
-        }
-
-        // Favorilere ekle/kaldır
-        function toggleFavorite(serviceId, button) {
+        // Favorilere ekle
+        function toggleFavorite(serviceId) {
+            const service = servicesData.find(s => s.id === serviceId);
             let favorites = JSON.parse(localStorage.getItem('favorites')) || [];
             const index = favorites.findIndex(fav => fav.id === serviceId);
 
             if (index > -1) {
                 favorites.splice(index, 1);
-                button.classList.remove('active');
-                button.innerHTML = '🤍 Favori';
             } else {
-                // Hizmeti bul ve ekle
-                fetch('data/services.json')
-                    .then(res => res.json())
-                    .then(data => {
-                        const service = data.services.find(s => s.id === serviceId);
-                        if (service) {
-                            favorites.push(service);
-                            button.classList.add('active');
-                            button.innerHTML = '❤️ Favori';
-                        }
-                    });
+                favorites.push(service);
             }
 
             localStorage.setItem('favorites', JSON.stringify(favorites));
+            displayServices(servicesData);
         }
 
         // Sepete ekle
-        function addToCart(serviceId) {
-            fetch('data/services.json')
-                .then(res => res.json())
-                .then(data => {
-                    const service = data.services.find(s => s.id === serviceId);
-                    if (service) {
-                        let cart = JSON.parse(localStorage.getItem('cart')) || [];
-                        
-                        // Aynı ürün varsa miktarını artır
-                        const existingItem = cart.find(item => item.id === serviceId);
-                        if (existingItem) {
-                            existingItem.quantity += 1;
-                        } else {
-                            service.quantity = 1;
-                            cart.push(service);
-                        }
+        function addToCart(serviceId, serviceName, servicePrice) {
+            const service = servicesData.find(s => s.id === serviceId);
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            
+            const existingItem = cart.find(item => item.id === serviceId);
+            if (existingItem) {
+                existingItem.quantity = (existingItem.quantity || 1) + 1;
+            } else {
+                service.quantity = 1;
+                cart.push(service);
+            }
 
-                        localStorage.setItem('cart', JSON.stringify(cart));
-                        updateCartBadge();
-                        
-                        // Başarı mesajı göster
-                        showNotification(`${service.name} sepete eklendi!`);
-                    }
-                });
-        }
-
-        // Sepet badge'ini güncelle
-        function updateCartBadge() {
-            const cart = JSON.parse(localStorage.getItem('cart')) || [];
-            const totalItems = cart.reduce((sum, item) => sum + (item.quantity || 1), 0);
-            document.getElementById('cartBadge').textContent = totalItems;
+            localStorage.setItem('cart', JSON.stringify(cart));
+            showNotification(`✓ ${serviceName} sepete eklendi! (₺${servicePrice})`);
         }
 
         // Bildirim göster
         function showNotification(message) {
             const notification = document.createElement('div');
-            notification.style.cssText = `
-                position: fixed;
-                top: 100px;
-                right: 20px;
-                background: #10b981;
-                color: white;
-                padding: 1rem 1.5rem;
-                border-radius: 8px;
-                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-                z-index: 2000;
-                animation: slideIn 0.3s ease;
-            `;
+            notification.className = 'notification';
             notification.textContent = message;
             document.body.appendChild(notification);
 
             setTimeout(() => {
                 notification.remove();
-            }, 2000);
+            }, 3000);
         }
 
-        // Hamburger Menü
-        const hamburger = document.querySelector('.hamburger');
-        const navMenu = document.querySelector('.nav-menu');
-        const navLinks = document.querySelectorAll('.nav-link');
-
-        if (hamburger && navMenu) {
-            hamburger.addEventListener('click', (e) => {
-                e.stopPropagation();
-                hamburger.classList.toggle('active');
-                navMenu.classList.toggle('active');
-            });
-
-            navLinks.forEach(link => {
-                link.addEventListener('click', () => {
-                    hamburger.classList.remove('active');
-                    navMenu.classList.remove('active');
-                });
-            });
-
-            document.addEventListener('click', (e) => {
-                if (!navMenu.contains(e.target) && !hamburger.contains(e.target)) {
-                    hamburger.classList.remove('active');
-                    navMenu.classList.remove('active');
-                }
-            });
+        // Hamburger menü
+        function toggleMenu() {
+            const menu = document.querySelector('.nav-menu');
+            menu.classList.toggle('active');
         }
 
-        // Sayfa yüklendiğinde hizmetleri yükle
-        document.addEventListener('DOMContentLoaded', () => {
-            loadServices();
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                document.querySelector('.nav-menu').classList.remove('active');
+            });
         });
     </script>
 </body>

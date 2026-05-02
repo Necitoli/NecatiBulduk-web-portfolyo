@@ -21,6 +21,7 @@
             --text-light: #64748b;
             --white: #ffffff;
             --shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            --success-green: #10b981;
         }
 
         html {
@@ -32,6 +33,7 @@
             background: linear-gradient(135deg, var(--light-bg) 0%, #e0e7ff 100%);
             color: var(--text-dark);
             line-height: 1.6;
+            padding-top: 80px;
         }
 
         body.dark-mode {
@@ -86,40 +88,43 @@
             text-decoration: none;
             color: var(--text-dark);
             font-weight: 500;
-            position: relative;
         }
 
         body.dark-mode .nav-link {
             color: #e0e0e0;
         }
 
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--primary-red);
-            transition: all 0.3s ease;
+        .nav-link.active {
+            color: var(--primary-red);
+            font-weight: 700;
         }
 
-        .nav-link:hover::after,
-        .nav-link.active::after {
-            width: 100%;
+        .cart-badge {
+            background: var(--primary-red);
+            color: white;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 700;
+            margin-left: 0.5rem;
         }
 
         .hamburger {
             display: none;
             flex-direction: column;
             cursor: pointer;
-            gap: 5px;
         }
 
         .hamburger span {
             width: 25px;
             height: 3px;
             background: var(--text-dark);
+            margin: 5px 0;
+            transition: 0.3s;
             border-radius: 2px;
         }
 
@@ -127,74 +132,80 @@
             background: #e0e0e0;
         }
 
-        .hamburger.active span:nth-child(1) {
-            transform: rotate(45deg) translate(8px, 8px);
-        }
-
-        .hamburger.active span:nth-child(2) {
-            opacity: 0;
-        }
-
-        .hamburger.active span:nth-child(3) {
-            transform: rotate(-45deg) translate(7px, -7px);
-        }
-
         /* Page Header */
         .page-header {
-            margin-top: 80px;
-            padding: 4rem 1.5rem;
-            background: linear-gradient(135deg, var(--primary-red), var(--dark-blue));
-            color: var(--white);
+            background: linear-gradient(135deg, var(--primary-red) 0%, var(--dark-blue) 100%);
+            color: white;
+            padding: 2rem 0;
             text-align: center;
+            margin-bottom: 2rem;
         }
 
         .page-header h1 {
-            font-size: 3rem;
-            margin-bottom: 0.5rem;
+            font-size: 2.5rem;
         }
 
         /* Cart Section */
         .cart-section {
-            padding: 4rem 1.5rem;
+            padding: 2rem 0;
+            margin-bottom: 3rem;
         }
 
         .cart-container {
             display: grid;
-            grid-template-columns: 1fr 350px;
+            grid-template-columns: 2fr 1fr;
             gap: 2rem;
         }
 
         .cart-items {
             background: var(--white);
-            border-radius: 15px;
+            border-radius: 12px;
             padding: 2rem;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+            box-shadow: var(--shadow);
         }
 
         body.dark-mode .cart-items {
             background: #2a2a3e;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
         }
 
         .cart-title {
-            font-size: 2rem;
-            color: var(--primary-red);
-            margin-bottom: 2rem;
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--text-dark);
         }
 
         body.dark-mode .cart-title {
-            color: var(--secondary-gold);
+            color: #e0e0e0;
+        }
+
+        .empty-cart {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-light);
+        }
+
+        body.dark-mode .empty-cart {
+            color: #b0b0c0;
+        }
+
+        .empty-cart-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
         }
 
         .cart-item {
             display: flex;
             gap: 1.5rem;
             padding: 1.5rem;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            margin-bottom: 1rem;
             align-items: center;
         }
 
         body.dark-mode .cart-item {
-            border-bottom-color: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.1);
         }
 
         .item-image {
@@ -204,62 +215,61 @@
         }
 
         .item-details {
-            flex: 1;
+            flex-grow: 1;
         }
 
         .item-name {
-            font-size: 1.2rem;
-            font-weight: 700;
+            font-weight: 600;
             margin-bottom: 0.5rem;
+            color: var(--text-dark);
+        }
+
+        body.dark-mode .item-name {
+            color: #e0e0e0;
         }
 
         .item-price {
             color: var(--primary-red);
-            font-weight: 600;
+            font-weight: 700;
             margin-bottom: 0.5rem;
         }
 
-        body.dark-mode .item-price {
-            color: var(--secondary-gold);
-        }
-
-        .quantity-control {
+        .item-quantity {
             display: flex;
             align-items: center;
             gap: 0.5rem;
-            width: fit-content;
         }
 
-        .quantity-btn {
+        .qty-btn {
             width: 30px;
             height: 30px;
             border: 1px solid var(--primary-red);
             background: transparent;
             color: var(--primary-red);
-            border-radius: 5px;
+            border-radius: 4px;
             cursor: pointer;
-            font-weight: bold;
+            font-weight: 600;
             transition: all 0.3s ease;
         }
 
-        .quantity-btn:hover {
+        .qty-btn:hover {
             background: var(--primary-red);
             color: white;
         }
 
-        .quantity-display {
-            width: 40px;
+        .qty-display {
+            min-width: 30px;
             text-align: center;
-            font-weight: 600;
         }
 
         .remove-btn {
             background: rgba(220, 38, 38, 0.1);
-            border: none;
             color: var(--primary-red);
+            border: none;
             padding: 0.5rem 1rem;
-            border-radius: 5px;
+            border-radius: 6px;
             cursor: pointer;
+            font-weight: 600;
             transition: all 0.3s ease;
         }
 
@@ -268,23 +278,12 @@
             color: white;
         }
 
-        .empty-cart {
-            text-align: center;
-            padding: 3rem;
-            color: var(--text-light);
-        }
-
-        .empty-cart-icon {
-            font-size: 4rem;
-            margin-bottom: 1rem;
-        }
-
         /* Cart Summary */
         .cart-summary {
             background: var(--white);
-            border-radius: 15px;
+            border-radius: 12px;
             padding: 2rem;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+            box-shadow: var(--shadow);
             height: fit-content;
             position: sticky;
             top: 100px;
@@ -292,12 +291,14 @@
 
         body.dark-mode .cart-summary {
             background: #2a2a3e;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
         }
 
         .summary-title {
-            font-size: 1.5rem;
-            color: var(--primary-red);
+            font-size: 1.3rem;
+            font-weight: 700;
             margin-bottom: 1.5rem;
+            color: var(--text-dark);
         }
 
         body.dark-mode .summary-title {
@@ -364,6 +365,61 @@
             color: white;
         }
 
+        /* Checkout Message */
+        .checkout-message {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 3rem;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            z-index: 3000;
+            text-align: center;
+            max-width: 400px;
+            animation: popIn 0.3s ease;
+        }
+
+        @keyframes popIn {
+            0% {
+                transform: translate(-50%, -50%) scale(0.5);
+                opacity: 0;
+            }
+            100% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 1;
+            }
+        }
+
+        .checkout-message-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .checkout-message-title {
+            color: var(--success-green);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .checkout-message-content {
+            color: #64748b;
+            margin-bottom: 1.5rem;
+            font-size: 1rem;
+        }
+
+        .checkout-message-thanks {
+            color: var(--success-green);
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .checkout-message-loading {
+            color: #64748b;
+            font-size: 0.9rem;
+        }
+
         /* Footer */
         .footer {
             background: var(--dark-blue);
@@ -410,28 +466,29 @@
             .cart-summary {
                 position: static;
             }
-
-            .cart-item {
-                flex-wrap: wrap;
-            }
         }
 
         @media (max-width: 480px) {
             .page-header h1 {
-                font-size: 2rem;
-            }
-
-            .cart-section {
-                padding: 2rem 1rem;
+                font-size: 1.8rem;
             }
 
             .cart-items {
-                padding: 1.5rem;
+                padding: 1rem;
             }
 
             .cart-item {
                 flex-direction: column;
                 text-align: center;
+            }
+
+            .item-details {
+                width: 100%;
+            }
+
+            .checkout-message {
+                max-width: 90%;
+                padding: 2rem;
             }
         }
     </style>
@@ -448,9 +505,14 @@
                 <li><a href="events.html" class="nav-link">Etkinlikler</a></li>
                 <li><a href="services.html" class="nav-link">Hizmetler</a></li>
                 <li><a href="contact.html" class="nav-link">İletişim</a></li>
-                <li><a href="cart.html" class="nav-link active">🛒 Sepet</a></li>
+                <li>
+                    <a href="cart.html" class="nav-link active" style="display: flex; align-items: center;">
+                        🛒 Sepet
+                        <span class="cart-badge" id="cartBadge">0</span>
+                    </a>
+                </li>
             </ul>
-            <div class="hamburger">
+            <div class="hamburger" onclick="toggleMenu()">
                 <span></span>
                 <span></span>
                 <span></span>
@@ -548,13 +610,13 @@
                     <div class="item-details">
                         <div class="item-name">${item.name}</div>
                         <div class="item-price">₺${item.price}</div>
-                        <div class="quantity-control">
-                            <button class="quantity-btn" onclick="updateQuantity(${index}, -1)">-</button>
-                            <div class="quantity-display">${item.quantity || 1}</div>
-                            <button class="quantity-btn" onclick="updateQuantity(${index}, 1)">+</button>
+                        <div class="item-quantity">
+                            <button class="qty-btn" onclick="updateQuantity(${index}, -1)">-</button>
+                            <span class="qty-display">${item.quantity || 1}</span>
+                            <button class="qty-btn" onclick="updateQuantity(${index}, 1)">+</button>
+                            <button class="remove-btn" onclick="removeItem(${index})">Kaldır</button>
                         </div>
                     </div>
-                    <button class="remove-btn" onclick="removeFromCart(${index})">Kaldır</button>
                 `;
                 container.appendChild(cartItem);
             });
@@ -575,8 +637,8 @@
             loadCart();
         }
 
-        // Sepetten kaldır
-        function removeFromCart(index) {
+        // Ürünü kaldır
+        function removeItem(index) {
             let cart = JSON.parse(localStorage.getItem('cart')) || [];
             cart.splice(index, 1);
             localStorage.setItem('cart', JSON.stringify(cart));
@@ -592,6 +654,7 @@
             document.getElementById('totalItems').textContent = totalItems;
             document.getElementById('subtotal').textContent = '₺' + subtotal;
             document.getElementById('total').textContent = '₺' + subtotal;
+            document.getElementById('cartBadge').textContent = totalItems;
         }
 
         // Satın al
@@ -603,38 +666,56 @@
             }
 
             const total = cart.reduce((sum, item) => sum + (item.price * (item.quantity || 1)), 0);
-            alert(`Satın alma işlemi başarılı!\nToplam: ₺${total}\n\nTeşekkür ederiz!`);
+            const itemCount = cart.reduce((sum, item) => sum + (item.quantity || 1), 0);
             
+            // Onay mesajı göster
+            showCheckoutMessage(total, itemCount);
+            
+            // Sepeti temizle
             localStorage.setItem('cart', JSON.stringify([]));
-            loadCart();
+            
+            // 2 saniye sonra sayfayı yenile
+            setTimeout(() => {
+                loadCart();
+            }, 2000);
+        }
+        
+        // Sepet onay mesajı göster
+        function showCheckoutMessage(total, itemCount) {
+            const message = document.createElement('div');
+            message.className = 'checkout-message';
+            
+            message.innerHTML = `
+                <div class="checkout-message-icon">✅</div>
+                <h2 class="checkout-message-title">Sepetiniz Onaylanmıştır!</h2>
+                <div class="checkout-message-content">
+                    <strong>${itemCount}</strong> ürün<br>
+                    <strong>Toplam: ₺${total}</strong>
+                </div>
+                <p class="checkout-message-thanks">🙏 Teşekkür ederiz!</p>
+                <p class="checkout-message-loading">Sepet temizleniyor...</p>
+            `;
+            
+            document.body.appendChild(message);
+            
+            // 2 saniye sonra kapat
+            setTimeout(() => {
+                message.remove();
+            }, 2000);
         }
 
-        // Hamburger Menü
-        const hamburger = document.querySelector('.hamburger');
-        const navMenu = document.querySelector('.nav-menu');
-        const navLinks = document.querySelectorAll('.nav-link');
-
-        if (hamburger && navMenu) {
-            hamburger.addEventListener('click', (e) => {
-                e.stopPropagation();
-                hamburger.classList.toggle('active');
-                navMenu.classList.toggle('active');
-            });
-
-            navLinks.forEach(link => {
-                link.addEventListener('click', () => {
-                    hamburger.classList.remove('active');
-                    navMenu.classList.remove('active');
-                });
-            });
-
-            document.addEventListener('click', (e) => {
-                if (!navMenu.contains(e.target) && !hamburger.contains(e.target)) {
-                    hamburger.classList.remove('active');
-                    navMenu.classList.remove('active');
-                }
-            });
+        // Hamburger menü
+        function toggleMenu() {
+            const menu = document.querySelector('.nav-menu');
+            menu.classList.toggle('active');
         }
+
+        // Menü linklerine tıklandığında menüyü kapat
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                document.querySelector('.nav-menu').classList.remove('active');
+            });
+        });
 
         // Sayfa yüklendiğinde sepeti yükle
         document.addEventListener('DOMContentLoaded', () => {
