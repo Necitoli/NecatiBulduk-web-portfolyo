@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Güreş Dünyası Sepetim">
+    <title>Sepetim - Güreş Dünyası</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-red: #dc2626;
+            --secondary-gold: #f59e0b;
+            --dark-blue: #1e3a8a;
+            --light-bg: #f8fafc;
+            --text-dark: #1e293b;
+            --text-light: #64748b;
+            --white: #ffffff;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, var(--light-bg) 0%, #e0e7ff 100%);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        body.dark-mode {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #e0e0e0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: var(--shadow);
+            z-index: 1000;
+        }
+
+        body.dark-mode .navbar {
+            background: rgba(26, 26, 46, 0.95);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--primary-red);
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 500;
+            position: relative;
+        }
+
+        body.dark-mode .nav-link {
+            color: #e0e0e0;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary-red);
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            width: 100%;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: var(--text-dark);
+            border-radius: 2px;
+        }
+
+        body.dark-mode .hamburger span {
+            background: #e0e0e0;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(8px, 8px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -7px);
+        }
+
+        /* Page Header */
+        .page-header {
+            margin-top: 80px;
+            padding: 4rem 1.5rem;
+            background: linear-gradient(135deg, var(--primary-red), var(--dark-blue));
+            color: var(--white);
+            text-align: center;
+        }
+
+        .page-header h1 {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Cart Section */
+        .cart-section {
+            padding: 4rem 1.5rem;
+        }
+
+        .cart-container {
+            display: grid;
+            grid-template-columns: 1fr 350px;
+            gap: 2rem;
+        }
+
+        .cart-items {
+            background: var(--white);
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        body.dark-mode .cart-items {
+            background: #2a2a3e;
+        }
+
+        .cart-title {
+            font-size: 2rem;
+            color: var(--primary-red);
+            margin-bottom: 2rem;
+        }
+
+        body.dark-mode .cart-title {
+            color: var(--secondary-gold);
+        }
+
+        .cart-item {
+            display: flex;
+            gap: 1.5rem;
+            padding: 1.5rem;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            align-items: center;
+        }
+
+        body.dark-mode .cart-item {
+            border-bottom-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .item-image {
+            font-size: 3rem;
+            min-width: 80px;
+            text-align: center;
+        }
+
+        .item-details {
+            flex: 1;
+        }
+
+        .item-name {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .item-price {
+            color: var(--primary-red);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        body.dark-mode .item-price {
+            color: var(--secondary-gold);
+        }
+
+        .quantity-control {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            width: fit-content;
+        }
+
+        .quantity-btn {
+            width: 30px;
+            height: 30px;
+            border: 1px solid var(--primary-red);
+            background: transparent;
+            color: var(--primary-red);
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .quantity-btn:hover {
+            background: var(--primary-red);
+            color: white;
+        }
+
+        .quantity-display {
+            width: 40px;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .remove-btn {
+            background: rgba(220, 38, 38, 0.1);
+            border: none;
+            color: var(--primary-red);
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .remove-btn:hover {
+            background: var(--primary-red);
+            color: white;
+        }
+
+        .empty-cart {
+            text-align: center;
+            padding: 3rem;
+            color: var(--text-light);
+        }
+
+        .empty-cart-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Cart Summary */
+        .cart-summary {
+            background: var(--white);
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+            height: fit-content;
+            position: sticky;
+            top: 100px;
+        }
+
+        body.dark-mode .cart-summary {
+            background: #2a2a3e;
+        }
+
+        .summary-title {
+            font-size: 1.5rem;
+            color: var(--primary-red);
+            margin-bottom: 1.5rem;
+        }
+
+        body.dark-mode .summary-title {
+            color: var(--secondary-gold);
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        body.dark-mode .summary-row {
+            border-bottom-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .summary-row.total {
+            border: none;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--primary-red);
+        }
+
+        body.dark-mode .summary-row.total {
+            color: var(--secondary-gold);
+        }
+
+        .checkout-btn {
+            width: 100%;
+            padding: 1rem;
+            background: var(--secondary-gold);
+            color: var(--text-dark);
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+        }
+
+        .checkout-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(245, 158, 11, 0.3);
+        }
+
+        .continue-shopping {
+            width: 100%;
+            padding: 0.8rem;
+            background: transparent;
+            color: var(--primary-red);
+            border: 2px solid var(--primary-red);
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 0.5rem;
+        }
+
+        .continue-shopping:hover {
+            background: var(--primary-red);
+            color: white;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--dark-blue);
+            color: var(--white);
+            text-align: center;
+            padding: 2rem;
+            margin-top: 4rem;
+        }
+
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+
+            .nav-menu {
+                position: fixed;
+                left: -100%;
+                top: 70px;
+                flex-direction: column;
+                background-color: var(--white);
+                width: 100%;
+                text-align: center;
+                transition: 0.3s;
+                box-shadow: var(--shadow);
+            }
+
+            body.dark-mode .nav-menu {
+                background-color: #2a2a3e;
+            }
+
+            .nav-menu.active {
+                left: 0;
+            }
+
+            .nav-menu li {
+                padding: 1rem;
+                border-bottom: 1px solid var(--light-bg);
+            }
+
+            .cart-container {
+                grid-template-columns: 1fr;
+            }
+
+            .cart-summary {
+                position: static;
+            }
+
+            .cart-item {
+                flex-wrap: wrap;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .page-header h1 {
+                font-size: 2rem;
+            }
+
+            .cart-section {
+                padding: 2rem 1rem;
+            }
+
+            .cart-items {
+                padding: 1.5rem;
+            }
+
+            .cart-item {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">⚔️ Güreş</div>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">Ana Sayfa</a></li>
+                <li><a href="about.html" class="nav-link">Güreş Nedir?</a></li>
+                <li><a href="wrestlers.html" class="nav-link">Efsaneler</a></li>
+                <li><a href="events.html" class="nav-link">Etkinlikler</a></li>
+                <li><a href="services.html" class="nav-link">Hizmetler</a></li>
+                <li><a href="contact.html" class="nav-link">İletişim</a></li>
+                <li><a href="cart.html" class="nav-link active">🛒 Sepet</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1>🛒 Sepetim</h1>
+        </div>
+    </section>
+
+    <!-- Cart Section -->
+    <section class="cart-section">
+        <div class="container">
+            <div class="cart-container">
+                <div class="cart-items" id="cartItemsContainer">
+                    <h2 class="cart-title">Sepet Boş</h2>
+                    <div class="empty-cart">
+                        <div class="empty-cart-icon">🛒</div>
+                        <p>Sepetinizde ürün bulunmamaktadır.</p>
+                        <p style="margin-top: 1rem; font-size: 0.9rem;">
+                            <a href="services.html" style="color: var(--primary-red); text-decoration: none; font-weight: 600;">
+                                Hizmetleri görüntülemek için tıklayın →
+                            </a>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="cart-summary" id="cartSummary">
+                    <h3 class="summary-title">Özet</h3>
+                    <div class="summary-row">
+                        <span>Ürün Sayısı:</span>
+                        <span id="totalItems">0</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>Ara Toplam:</span>
+                        <span id="subtotal">₺0</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>Kargo:</span>
+                        <span>₺0</span>
+                    </div>
+                    <div class="summary-row total">
+                        <span>Toplam:</span>
+                        <span id="total">₺0</span>
+                    </div>
+                    <button class="checkout-btn" onclick="checkout()">Satın Al</button>
+                    <button class="continue-shopping" onclick="window.location.href='services.html'">Alışverişe Devam Et</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 Güreş Dünyası. Tüm Hakları Saklıdır.</p>
+        </div>
+    </footer>
+
+    <script src="js/interactions.js"></script>
+    <script>
+        // Sepeti yükle ve göster
+        function loadCart() {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const container = document.getElementById('cartItemsContainer');
+
+            if (cart.length === 0) {
+                container.innerHTML = `
+                    <h2 class="cart-title">Sepet Boş</h2>
+                    <div class="empty-cart">
+                        <div class="empty-cart-icon">🛒</div>
+                        <p>Sepetinizde ürün bulunmamaktadır.</p>
+                        <p style="margin-top: 1rem; font-size: 0.9rem;">
+                            <a href="services.html" style="color: var(--primary-red); text-decoration: none; font-weight: 600;">
+                                Hizmetleri görüntülemek için tıklayın →
+                            </a>
+                        </p>
+                    </div>
+                `;
+                updateSummary();
+                return;
+            }
+
+            container.innerHTML = '<h2 class="cart-title">Sepet Ürünleri (' + cart.length + ')</h2>';
+
+            cart.forEach((item, index) => {
+                const cartItem = document.createElement('div');
+                cartItem.className = 'cart-item';
+                cartItem.innerHTML = `
+                    <div class="item-image">${item.image}</div>
+                    <div class="item-details">
+                        <div class="item-name">${item.name}</div>
+                        <div class="item-price">₺${item.price}</div>
+                        <div class="quantity-control">
+                            <button class="quantity-btn" onclick="updateQuantity(${index}, -1)">-</button>
+                            <div class="quantity-display">${item.quantity || 1}</div>
+                            <button class="quantity-btn" onclick="updateQuantity(${index}, 1)">+</button>
+                        </div>
+                    </div>
+                    <button class="remove-btn" onclick="removeFromCart(${index})">Kaldır</button>
+                `;
+                container.appendChild(cartItem);
+            });
+
+            updateSummary();
+        }
+
+        // Miktarı güncelle
+        function updateQuantity(index, change) {
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            cart[index].quantity = (cart[index].quantity || 1) + change;
+
+            if (cart[index].quantity < 1) {
+                cart.splice(index, 1);
+            }
+
+            localStorage.setItem('cart', JSON.stringify(cart));
+            loadCart();
+        }
+
+        // Sepetten kaldır
+        function removeFromCart(index) {
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            cart.splice(index, 1);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            loadCart();
+        }
+
+        // Özeti güncelle
+        function updateSummary() {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const totalItems = cart.reduce((sum, item) => sum + (item.quantity || 1), 0);
+            const subtotal = cart.reduce((sum, item) => sum + (item.price * (item.quantity || 1)), 0);
+
+            document.getElementById('totalItems').textContent = totalItems;
+            document.getElementById('subtotal').textContent = '₺' + subtotal;
+            document.getElementById('total').textContent = '₺' + subtotal;
+        }
+
+        // Satın al
+        function checkout() {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            if (cart.length === 0) {
+                alert('Sepetiniz boş!');
+                return;
+            }
+
+            const total = cart.reduce((sum, item) => sum + (item.price * (item.quantity || 1)), 0);
+            alert(`Satın alma işlemi başarılı!\nToplam: ₺${total}\n\nTeşekkür ederiz!`);
+            
+            localStorage.setItem('cart', JSON.stringify([]));
+            loadCart();
+        }
+
+        // Hamburger Menü
+        const hamburger = document.querySelector('.hamburger');
+        const navMenu = document.querySelector('.nav-menu');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        if (hamburger && navMenu) {
+            hamburger.addEventListener('click', (e) => {
+                e.stopPropagation();
+                hamburger.classList.toggle('active');
+                navMenu.classList.toggle('active');
+            });
+
+            navLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    hamburger.classList.remove('active');
+                    navMenu.classList.remove('active');
+                });
+            });
+
+            document.addEventListener('click', (e) => {
+                if (!navMenu.contains(e.target) && !hamburger.contains(e.target)) {
+                    hamburger.classList.remove('active');
+                    navMenu.classList.remove('active');
+                }
+            });
+        }
+
+        // Sayfa yüklendiğinde sepeti yükle
+        document.addEventListener('DOMContentLoaded', () => {
+            loadCart();
+        });
+    </script>
+</body>
+</html>
